@@ -1,0 +1,8 @@
+import { Link } from 'react-router-dom';
+import { Flame, ArrowUpRight } from 'lucide-react';
+import VideoCard, { EmptyState, useVideos } from '../components/VideoCard';
+export default function Trending() {
+  const { videos, loading } = useVideos({ order: 'trend' });
+  const ranked = [...videos].sort((a,b) => (b.likes?.length || 0) - (a.likes?.length || 0));
+  return <div className="mx-auto max-w-[880px]"><section className="mb-8 flex items-end justify-between overflow-hidden rounded-[28px] border border-white/[.08] bg-gradient-to-r from-[#282015] to-panel p-6 sm:p-9"><div><div className="mb-2 flex items-center gap-2 text-accent"><Flame size={16}/><span className="text-[10px] font-bold uppercase tracking-[.2em]">The community’s favorites</span></div><h1 className="font-display text-3xl font-bold sm:text-4xl">Trending now<span className="text-accent">.</span></h1><p className="mt-2 text-sm text-zinc-500">The videos people can’t stop passing around.</p></div><Link to="/upload" className="hidden items-center gap-2 text-xs text-zinc-400 hover:text-accent sm:flex">Add yours <ArrowUpRight size={14}/></Link></section><div className="space-y-5">{loading ? <div className="h-72 animate-pulse rounded-3xl bg-panel"/> : ranked.length ? ranked.map((v,i) => <div key={v.id} className="relative"><span className="absolute -left-2 -top-2 z-10 grid h-8 w-8 place-items-center rounded-full border border-white/10 bg-ink font-display text-xs font-bold text-accent">{String(i+1).padStart(2,'0')}</span><VideoCard video={v}/></div>) : <EmptyState title="Trending starts with you" text="Be the first to post and bring this feed to life."/>}</div></div>;
+}

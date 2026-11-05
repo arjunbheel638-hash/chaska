@@ -1,0 +1,23 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+    function owns(uid) { return signedIn() && request.auth.uid == uid; }
+    match /users/{uid} {
+      allow read: if true;
+      allow create: if owns(uid);
+      allow update: if owns(uid);
+    }
+    match /videos/{videoId} {
+      allow read: if true;
+      allow create: if signedIn() && request.resource.data.ownerId == request.auth.uid;
+      allow update, delete: if signedIn() && resource.data.ownerId == request.auth.uid;
+      // Social fields are updated by the client for a signed-in user in this MVP.
+      match /comments/{commentId} {
+        allow read: if true;
+        allow create: if signedIn() && request.resource.data.userId == request.auth.uid;
+        allow update, delete: if signedIn() && resource.data.userId == request.auth.uid;
+      }
+    }
+  }
+}

@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { font-family: 'DM Sans', sans-serif; color: #fff; background: #101010; font-synthesis: none; text-rendering: optimizeLegibility; }
+* { box-sizing: border-box; }
+html { min-width: 320px; background: #101010; scroll-behavior: smooth; }
+body { margin: 0; min-width: 320px; min-height: 100vh; }
+button, input, textarea, select { font: inherit; }
+button { cursor: pointer; }
+::selection { color: #101010; background: #e8fd56; }
+.nav-link { display:flex; align-items:center; gap:14px; padding:12px; margin:2px 0; border-radius:12px; color:#858585; font-size:13px; font-weight:600; transition:all .2s; }
+.nav-link:hover { color:#fff; background:rgba(255,255,255,.04); }
+.nav-link-active { color:#e8fd56; background:rgba(232,253,86,.08); }
+.action-button { display:inline-flex; align-items:center; gap:7px; padding:8px 10px; border-radius:999px; color:#8d8d8d; font-size:11px; transition:all .2s; }
+.action-button:hover { color:white; background:rgba(255,255,255,.06); }
+.form-input { width:100%; border:1px solid rgba(255,255,255,.1); border-radius:12px; background:rgba(255,255,255,.04); padding:13px 15px; color:#fff; outline:none; transition:border .2s; }
+.form-input:focus { border-color:rgba(232,253,86,.55); }
+.form-input::placeholder { color:#555; }
+select.form-input { color-scheme:dark; }
+textarea { min-height:112px; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior:auto !important; transition-duration:.01ms !important; animation-duration:.01ms !important; } }
